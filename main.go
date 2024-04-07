@@ -1,11 +1,11 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"math/rand"
-	"net/http"
-	"os"
+    "encoding/json"
+    "fmt"
+    "math/rand"
+    "net/http"
+    "os"
 )
 
 const WORLD_SIZE = 64
@@ -29,15 +29,15 @@ func main() {
 
 func handlerStatic(w http.ResponseWriter, r *http.Request) {
     if r.URL.Path == "/" {
-		http.ServeFile(w, r, "./web/index.htm")
-		return
-	}
+        http.ServeFile(w, r, "./web/index.htm")
+        return
+    }
 
-	path := "./web/" + r.URL.Path
-	if _, err := os.Stat(path); !os.IsNotExist(err) {
-		http.ServeFile(w, r, path)
-		return
-	}
+    path := "./web/" + r.URL.Path
+    if _, err := os.Stat(path); !os.IsNotExist(err) {
+        http.ServeFile(w, r, path)
+        return
+    }
 
     w.WriteHeader(http.StatusNotFound)
 }
