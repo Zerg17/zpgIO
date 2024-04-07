@@ -1,6 +1,7 @@
 package main
 
 import (
+	"compress/gzip"
 	"encoding/json"
 	"fmt"
 	"math/rand"
@@ -74,10 +75,14 @@ func handlerJson(w http.ResponseWriter, r *http.Request) {
             fmt.Fprintf(w, "Error: %v", err)
         } else {
             w.Header().Set("Content-Type", "application/json")
-            w.Write(jsonData)
+            w.Header().Set("Content-Encoding", "gzip")
+            gz := gzip.NewWriter(w)
+            defer gz.Close()
+            gz.Write(jsonData)
         }
         return
     }
 
     w.WriteHeader(http.StatusNotFound)
 }
+
