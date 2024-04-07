@@ -69,7 +69,7 @@ func handlerStatic(w http.ResponseWriter, r *http.Request) {
 
 func handlerJson(w http.ResponseWriter, r *http.Request) {
     fmt.Println(r.URL.Path)
-    if r.URL.Path == "/json/chunk" {
+    if r.URL.Path == "/json/chunk/" {
         jsonData, err := json.Marshal(world[0][0])
         if err != nil {
             fmt.Fprintf(w, "Error: %v", err)
