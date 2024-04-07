@@ -85,13 +85,10 @@ function draw() {
     drawMap(ctx, map_size, mapData)
 }
 
-window.requestAnimationFrame(gameSetup);
 
-function gameSetup() {
-    mapData = generateMap()
-    window.requestAnimationFrame(gameLoop)
-}
-
+mapData = generateMap()
+gameSetup()
+window.requestAnimationFrame(gameLoop);
 function gameLoop() {
     draw();
     window.requestAnimationFrame(gameLoop);
