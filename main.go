@@ -27,8 +27,8 @@ type chunk_t struct {
 var world [WORLD_SIZE][WORLD_SIZE]chunk_t
 
 func generateWorld() {
-    for i := 0; i < WORLD_SIZE; i++ {
-        for j := 0; j < WORLD_SIZE; j++ {
+    for i := 0; i < CHUNK_SIZE; i++ {
+        for j := 0; j < CHUNK_SIZE; j++ {
             world[0][0].Blocks[i][j].Type = rand.Intn(4)
         }
     }
