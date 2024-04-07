@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/KEINOS/go-noise"
 )
 
 const WORLD_SIZE = 1
@@ -27,17 +29,27 @@ type chunk_t struct {
 var world [WORLD_SIZE][WORLD_SIZE]chunk_t
 
 func generateWorld() {
+    n, _ := noise.New(noise.OpenSimplex, rand.Int63())
     for i := 0; i < CHUNK_SIZE; i++ {
         for j := 0; j < CHUNK_SIZE; j++ {
-            world[0][0].Blocks[i][j].Type = rand.Intn(4)
+            if((CHUNK_SIZE / 2 - i) * (CHUNK_SIZE / 2 - i) + (CHUNK_SIZE / 2 - j) * (CHUNK_SIZE / 2 - j) < 100) {
+                world[0][0].Blocks[i][j].Type = 0
+            } else {
+                v := (n.Eval64(float64(i)/10, float64(j)/10) + 1) / 2
+                switch {
+                    case v > 0.9: world[0][0].Blocks[i][j].Type = 3
+                    case v > 0.7: world[0][0].Blocks[i][j].Type = 2
+                    case v > 0.4: world[0][0].Blocks[i][j].Type = 1
+                    default: world[0][0].Blocks[i][j].Type = 0
+                }
+            }
         }
     }
 }
 
 func worldProc() {
     for {
-        world[0][0].Blocks[rand.Intn(CHUNK_SIZE)][rand.Intn(CHUNK_SIZE)].Type = 0
-        time.Sleep(10 * time.Millisecond)
+        time.Sleep(500 * time.Millisecond)
     }
 }
 
