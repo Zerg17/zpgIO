@@ -53,6 +53,13 @@ class Chunk {
                     ctx.fillStyle = Chunk.BlockColor[this.Blocks[i][j].Type]
                     ctx.fillRect(i * blockResolution, j * blockResolution, blockResolution, blockResolution)
                 }
+                //draw 3 parallel diagonal stripes on iron blocks
+                if (this.Blocks[i][j].Type === Chunk.BlockType.IRON) {
+                    ctx.strokeStyle = "black"
+                    Chunk.drawLine(ctx, (i + 0.5) * blockResolution, j * blockResolution, (i + 1) * blockResolution, (j + 0.5) * blockResolution)
+                    Chunk.drawLine(ctx, i * blockResolution, j * blockResolution, (i + 1) * blockResolution, (j + 1) * blockResolution)
+                    Chunk.drawLine(ctx, i * blockResolution, (j + 0.5) * blockResolution, (i + 0.5) * blockResolution, (j + 1) * blockResolution)
+                }
             }
         }
 
