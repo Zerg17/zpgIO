@@ -30,22 +30,37 @@ function drawBlockInfo() {
 
     //draw nothing if mouse is not over the blocks
     if (blockX < 0 || blockY < 0 || blockX >= Chunk.dimension || blockY >= Chunk.dimension) {
+        canvas.style.cursor = "default"
         return
+    } else {
+        canvas.style.cursor = "none"
     }
 
-    // Hightlight the block tinting it white
+    // Highlight the block tinting it white
     ctx.fillStyle = "rgba(255, 255, 255, 0.5)"
     ctx.fillRect(blockX * (worldResolution / Chunk.dimension), blockY * (worldResolution / Chunk.dimension), worldResolution / Chunk.dimension, worldResolution / Chunk.dimension)
     // Draw info box about the block
     ctx.fillStyle = "rgba(0, 0, 0, 0.5)"
-    ctx.fillRect(x + 5, y + 5, 60, 25)
+    ctx.fillRect(x, y, 60, 25)
     ctx.fillStyle = "white"
     ctx.font = "8px Arial"
     // Write block type name
-    ctx.fillText(Chunk.BlockTypeNames[chunk.Blocks[blockX][blockY].Type], x + 10, y + 15)
+    ctx.fillText(Chunk.BlockTypeNames[chunk.Blocks[blockX][blockY].Type], x + 5, y + 10)
     // Write block temperature
-    ctx.fillText("T: " + chunk.Blocks[blockX][blockY].Temperature, x + 10, y + 25)
+    ctx.fillText("T: " + chunk.Blocks[blockX][blockY].Temperature, x + 5, y + 20)
 
+    //draw a crosshair
+    ctx.strokeStyle = "white"
+    ctx.beginPath()
+    ctx.moveTo(x,y)
+    ctx.lineTo(x + 60, y)
+    ctx.moveTo(x,y)
+    ctx.lineTo(x - 5, y)
+    ctx.moveTo(x,y)
+    ctx.lineTo(x, y + 25)
+    ctx.moveTo(x,y)
+    ctx.lineTo(x, y - 5)
+    ctx.stroke()
 }
 
 function draw() {
