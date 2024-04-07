@@ -87,7 +87,6 @@ function draw() {
 
 
 mapData = generateMap()
-gameSetup()
 window.requestAnimationFrame(gameLoop);
 function gameLoop() {
     draw();
