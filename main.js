@@ -26,7 +26,7 @@ let BlockColor = {
 
 // Цвет линий
 let gridColor = "#202020"
-let borderColor = "#800000"
+let borderColor = "#F00000"
 
 ctx.lineWidth = 0.5
 
@@ -60,12 +60,6 @@ function drawMap(ctx, map_size, mapData) {
         drawLine(ctx, i * cell_size, 0, i * cell_size, field_size)
         drawLine(ctx, 0, i * cell_size, field_size, i * cell_size)
     }
-    // Отрисовка границ поля
-    ctx.strokeStyle = borderColor
-    drawLine(ctx, 0, 0, field_size, 0)
-    drawLine(ctx, 0, 0, 0, field_size)
-    drawLine(ctx, 0, field_size, field_size, field_size)
-    drawLine(ctx, field_size, 0, field_size, field_size)
 
     // Отрисовка блоков
     for (let i = 0; i < map_size; i++) {
@@ -77,6 +71,13 @@ function drawMap(ctx, map_size, mapData) {
             }
         }
     }
+
+    // Отрисовка границ поля
+    ctx.strokeStyle = borderColor
+    drawLine(ctx, 0, 0, field_size, 0)
+    drawLine(ctx, 0, 0, 0, field_size)
+    drawLine(ctx, 0, field_size, field_size, field_size)
+    drawLine(ctx, field_size, 0, field_size, field_size)
 }
 
 function draw() {
