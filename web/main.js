@@ -9,25 +9,24 @@ let h = ctx.canvas.height / window.devicePixelRatio
 ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
 
 // Поле всегда квадратное
-let worldSize = 64
 
 // Fill with zeros
-world = new World(worldSize, new Array(worldSize).fill(0).map(() => new Array(worldSize).fill(0)))
+chunk = new Chunk()
 
 function draw() {
     ctx.clearRect(0, 0, w, h)
-    world.draw(ctx, Math.min(w, h))
+    chunk.draw(ctx, Math.min(w, h))
 }
 
-function loadWorldFromServer() {
+function loadChunkFromServer() {
     fetch('/json/chunk/').
     then(response => response.json()).
     then(data => {
-        world.update(data)
+        chunk.update(data)
     })
 }
 
-setInterval(loadWorldFromServer, 500)
+setInterval(loadChunkFromServer, 500)
 
 window.requestAnimationFrame(gameLoop)
 function gameLoop() {
