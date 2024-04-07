@@ -36,8 +36,8 @@ func generateWorld() {
 
 func worldProc() {
     for {
-        world[0][0].Blocks[rand.Intn(WORLD_SIZE)][rand.Intn(WORLD_SIZE)].Type = 0
-        time.Sleep(500 * time.Millisecond)
+        world[0][0].Blocks[rand.Intn(CHUNK_SIZE)][rand.Intn(CHUNK_SIZE)].Type = 0
+        time.Sleep(10 * time.Millisecond)
     }
 }
 
