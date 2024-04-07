@@ -3,14 +3,24 @@ class Chunk {
         EMPTY: 0,
         STONE: 1,
         COPPER: 2,
-        IRON: 3
+        IRON: 3,
+        RUBY: 4
+    }
+
+    static BlockTypeNames = {
+        [Chunk.BlockType.EMPTY]: "EMPTY",
+        [Chunk.BlockType.STONE]: "STONE",
+        [Chunk.BlockType.COPPER]: "COPPER",
+        [Chunk.BlockType.IRON]: "IRON",
+        [Chunk.BlockType.RUBY]: "RUBY"
     }
 
     static BlockColor = {
         [Chunk.BlockType.EMPTY]: "#202020",
         [Chunk.BlockType.STONE]: "#808080",
         [Chunk.BlockType.COPPER]: "#FFA500",
-        [Chunk.BlockType.IRON]: "#A9A9A9"
+        [Chunk.BlockType.IRON]: "#A9A9A9",
+        [Chunk.BlockType.RUBY]: "#FF0000"
     }
     static gridColor = "#202020"
     static borderColor = "#F00000"
@@ -53,10 +63,7 @@ class Chunk {
         }
 
         ctx.strokeStyle = Chunk.borderColor
-        Chunk.drawLine(ctx, 0, 0, resolution, 0)
-        Chunk.drawLine(ctx, 0, 0, 0, resolution)
-        Chunk.drawLine(ctx, 0, resolution, resolution, resolution)
-        Chunk.drawLine(ctx, resolution, 0, resolution, resolution)
+        ctx.strokeRect(0, 0, resolution, resolution)
     }
 }
 
