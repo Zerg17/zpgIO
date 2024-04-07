@@ -11,12 +11,23 @@ ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
 // Поле всегда квадратное
 let worldSize = 64
 
-world = new World(worldSize, generateMap(worldSize))
+// Fill with zeros
+world = new World(worldSize, new Array(worldSize).fill(0).map(() => new Array(worldSize).fill(0)))
 
 function draw() {
     ctx.clearRect(0, 0, w, h)
     world.draw(ctx, Math.min(w, h))
 }
+
+function loadWorldFromServer() {
+    fetch('/json/chunk/').
+    then(response => response.json()).
+    then(data => {
+        world.update(data)
+    })
+}
+
+setInterval(loadWorldFromServer, 500)
 
 window.requestAnimationFrame(gameLoop)
 function gameLoop() {

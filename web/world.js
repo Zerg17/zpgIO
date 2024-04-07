@@ -59,12 +59,4 @@ class World {
     }
 }
 
-function generateMap(worldSize) {
-    // Генерация карты со случайными значениями из BlockType
-    let blockTypesNumber = Object.keys(World.BlockType).length
-    newMapData = new Array(worldSize).fill(0).map(() => new Array(worldSize).fill(0).map(() => Math.floor(Math.random() * blockTypesNumber)))
-    return newMapData
-}
-
 window.World = World
-window.generateMap = generateMap
