@@ -8,15 +8,33 @@ let w = ctx.canvas.width / window.devicePixelRatio
 let h = ctx.canvas.height / window.devicePixelRatio
 ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
 
-ctx.strokeStyle = "#202020"
-ctx.fillStyle = "#808080"
-ctx.lineWidth = 1
+// Enum с типами блоков
+let BlockType = {
+    EMPTY: 0,
+    STONE: 1,
+    COPPER: 2,
+    IRON: 3
+}
+
+// Массив с цветами блоков
+let BlockColor = {
+    [BlockType.EMPTY]: "#202020",
+    [BlockType.STONE]: "#808080",
+    [BlockType.COPPER]: "#FFA500",
+    [BlockType.IRON]: "#A9A9A9"
+}
+
+// Цвет линий
+let gridColor = "#202020"
+let borderColor = "#800000"
+
+ctx.lineWidth = 0.5
 
 // Поле всегда квадратное
 let map_size = 64
 
-// Массив для хранения карты размером map_size x map_size с рандомными значениями
-let mapData = new Array(map_size).fill(0).map(() => new Array(map_size).fill(0).map(() => Math.random() > 0.5 ? 1 : 0))
+// Массив для хранения карты размером map_size x map_size с начальными значениями 0
+let mapData = new Array(map_size).fill(0).map(() => new Array(map_size).fill(0))
 
 let drawLine = (ctx, x1, y1, x2, y2) => {
     ctx.beginPath()
@@ -25,22 +43,55 @@ let drawLine = (ctx, x1, y1, x2, y2) => {
     ctx.stroke()
 }
 
-let drawMap = (ctx, map_size, mapData) => {
+function generateMap() {
+    // Генерация карты со случайными значениями из BlockType
+    let blockTypesNumber = Object.keys(BlockType).length
+    newMapData = new Array(map_size).fill(0).map(() => new Array(map_size).fill(0).map(() => Math.floor(Math.random() * blockTypesNumber)))
+    return newMapData
+}
+
+function drawMap(ctx, map_size, mapData) {
     // Размер клетки определяется меньшей стороной канваса
     let field_size = Math.min(w, h)
     let cell_size = field_size / map_size
+    // Отрисовка сетки
     for (let i = 0; i <= map_size; i++) {
+        ctx.strokeStyle = gridColor
         drawLine(ctx, i * cell_size, 0, i * cell_size, field_size)
         drawLine(ctx, 0, i * cell_size, field_size, i * cell_size)
     }
+    // Отрисовка границ поля
+    ctx.strokeStyle = borderColor
+    drawLine(ctx, 0, 0, field_size, 0)
+    drawLine(ctx, 0, 0, 0, field_size)
+    drawLine(ctx, 0, field_size, field_size, field_size)
+    drawLine(ctx, field_size, 0, field_size, field_size)
+
+    // Отрисовка блоков
     for (let i = 0; i < map_size; i++) {
         for (let j = 0; j < map_size; j++) {
-            if (mapData[i][j] === 1) {
+            // Если блок не пустой, то отрисовываем его
+            if (mapData[i][j] !== BlockType.EMPTY) {
+                ctx.fillStyle = BlockColor[mapData[i][j]]
                 ctx.fillRect(i * cell_size, j * cell_size, cell_size, cell_size)
             }
         }
     }
-
 }
 
-drawMap(ctx, map_size, mapData)
+function draw() {
+    ctx.clearRect(0, 0, w, h)
+    drawMap(ctx, map_size, mapData)
+}
+
+window.requestAnimationFrame(gameSetup);
+
+function gameSetup() {
+    mapData = generateMap()
+    window.requestAnimationFrame(gameLoop)
+}
+
+function gameLoop() {
+    draw();
+    window.requestAnimationFrame(gameLoop);
+}
