@@ -28,6 +28,11 @@ function drawBlockInfo() {
     var blockX = Math.floor(x / (worldResolution / Chunk.dimension))
     var blockY = Math.floor(y / (worldResolution / Chunk.dimension))
 
+    //draw nothing if mouse is not over the blocks
+    if (blockX < 0 || blockY < 0 || blockX >= Chunk.dimension || blockY >= Chunk.dimension) {
+        return
+    }
+
     // Hightlight the block tinting it white
     ctx.fillStyle = "rgba(255, 255, 255, 0.5)"
     ctx.fillRect(blockX * (worldResolution / Chunk.dimension), blockY * (worldResolution / Chunk.dimension), worldResolution / Chunk.dimension, worldResolution / Chunk.dimension)
