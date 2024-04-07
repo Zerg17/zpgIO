@@ -27,14 +27,14 @@ class World {
 
     constructor(dimension, data) {
         this.dimension = dimension
-        this.updateWorld(data)
+        this.update(data)
     }
 
-    updateWorld(map) {
+    update(map) {
         this.map = map
     }
 
-    drawWorld(ctx, resolution) {
+    draw(ctx, resolution) {
         let cellResolution = resolution / this.dimension
         for (let i = 0; i < this.dimension; i++) {
             for (let j = 0; j < this.dimension; j++) {

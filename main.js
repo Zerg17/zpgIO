@@ -1,5 +1,3 @@
-// const World = window.World
-
 let canvas = document.getElementById('canvas')
 
 let ctx  = canvas.getContext('2d')
@@ -17,11 +15,11 @@ world = new World(worldSize, generateMap(worldSize))
 
 function draw() {
     ctx.clearRect(0, 0, w, h)
-    world.drawWorld(ctx, Math.min(w, h))
+    world.draw(ctx, Math.min(w, h))
 }
 
-window.requestAnimationFrame(gameLoop);
+window.requestAnimationFrame(gameLoop)
 function gameLoop() {
-    draw();
-    window.requestAnimationFrame(gameLoop);
+    draw()
+    window.requestAnimationFrame(gameLoop)
 }
