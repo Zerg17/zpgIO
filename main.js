@@ -8,16 +8,18 @@ let w = ctx.canvas.width / window.devicePixelRatio
 let h = ctx.canvas.height / window.devicePixelRatio
 ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
 
-ctx.strokeStyle = "#FFFA"
-ctx.fillStyle = "#FFFA"
-ctx.lineWidth = 0.5
+// Поле всегда квадратное
+let worldSize = 64
 
-let drawLine = (ctx, x1, y1, x2, y2) => {
-    ctx.beginPath()
-    ctx.moveTo(x1, y1)
-    ctx.lineTo(x2, y2)
-    ctx.stroke()
+world = new World(worldSize, generateMap(worldSize))
+
+function draw() {
+    ctx.clearRect(0, 0, w, h)
+    world.draw(ctx, Math.min(w, h))
 }
 
-drawLine(ctx, 0, 50, 0, 50)
-drawLine(ctx, 0, 50, 50, 0)
+window.requestAnimationFrame(gameLoop)
+function gameLoop() {
+    draw()
+    window.requestAnimationFrame(gameLoop)
+}
