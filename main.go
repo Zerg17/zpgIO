@@ -118,7 +118,7 @@ func handlerJson(w http.ResponseWriter, r *http.Request) {
             sendJson(w, world[0][0])
         case "/json/bots/":
             sendJson(w, bots)
+        default:
+            w.WriteHeader(http.StatusNotFound)
     }
-
-    w.WriteHeader(http.StatusNotFound)
 }
