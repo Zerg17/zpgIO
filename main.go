@@ -31,6 +31,7 @@ var world [WORLD_SIZE][WORLD_SIZE]chunk_t
 
 type bot_t struct {
     X, Y int
+    Color string
     BatU float32
     Temp float32
 }
@@ -73,7 +74,7 @@ func worldProc() {
 func main() {
     bots = make([]bot_t, 0)
     generateWorld()
-    bots = append(bots, bot_t{X: 32, Y: 32, BatU: 4.2, Temp: 293})
+    bots = append(bots, bot_t{X: 32, Y: 32, Color: "red", BatU: 4.2, Temp: 293})
 
     go worldProc()
 
