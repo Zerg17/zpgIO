@@ -82,7 +82,7 @@ setInterval(loadChunkFromServer, 500)
 const fps = 60
 let then = performance.now()
 window.requestAnimationFrame(gameLoop)
-function gameLoop() {
+function gameLoop(now) {
     const delta = now - then
     if (delta > 1000 / fps) {
         then = now - (delta % (1000 / fps))
