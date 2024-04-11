@@ -19,8 +19,8 @@ func main() {
 
     app.world.generateWorld(5)
 
-    app.world.addBot(-1, 0, "blue", "zerg17")
-    app.world.addBot(1, 0, "orange", "yayayat")
+    app.world.addBot(-1, 0, "zerg17", "blue")
+    app.world.addBot(1, 0, "yayayat", "orange")
 
     http.HandleFunc("/", handlerStatic)
     http.HandleFunc("/json/", app.handlerJson)
