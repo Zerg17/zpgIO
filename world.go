@@ -1,10 +1,10 @@
 package main
 
 import (
-    "math/rand"
-    "time"
+	"math/rand"
+	"time"
 
-    "github.com/KEINOS/go-noise"
+	"github.com/KEINOS/go-noise"
 )
 
 const CHUNK_SIZE = 16
@@ -56,13 +56,13 @@ func (w *world_t) addChunk(x, y int) {
                 (CHUNK_SIZE / 2 - (j + y * CHUNK_SIZE)) > 100 {
                 switch {
                     case v1 > 0.5 && v2 > 0.8:
-                        c.blocks[i][j] = 2
+                        b = 2
                     case v1 > 0.5 && v3 > 0.7:
-                        c.blocks[i][j] = 3
+                        b = 3
                     case v1 > 0.5 && v4 > 0.9:
-                        c.blocks[i][j] = 4
+                        b = 4
                     case v1 > 0.5:
-                        c.blocks[i][j] = 1
+                        b = 1
                 }
             }
 
