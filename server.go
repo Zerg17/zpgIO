@@ -67,30 +67,36 @@ func (app *App) handlerJson(w http.ResponseWriter, r *http.Request) {
     }
 
     if len(parts) == 4 && parts[2] == "bots" {
-        type tmp_t struct {
+        type tmpBotSensors_t struct {
+            BatU float32 `json:"batU"`
+            Temp float32 `json:"temp"`
+        }
+
+        type tmpBot_t struct {
             X     int     `json:"x"`
             Y     int     `json:"y"`
             Name  string  `json:"name"`
             Color string  `json:"color"`
-            BatU  float32 `json:"batU"`
-            Temp  float32 `json:"temp"`
+            Sensors tmpBotSensors_t `json:"sensors"`
         }
 
-        s := make([]tmp_t, len(app.world.bots))
+        s := make([]tmpBot_t, len(app.world.bots))
 
         for i, v := range app.world.bots {
-            s[i] = tmp_t{
+            s[i] = tmpBot_t{
                 X:     v.x,
                 Y:     v.y,
                 Name:  v.name,
                 Color: v.color,
-                BatU:  v.batU,
-                Temp:  v.temp,
+                Sensors: tmpBotSensors_t{
+                    BatU: v.sensors.batU,
+                    Temp: v.sensors.temp,
+                },
             }
         }
 
         sendJson(w, s)
-		return
+        return
     }
 
     w.WriteHeader(http.StatusNotFound)
