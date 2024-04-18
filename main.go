@@ -5,15 +5,27 @@ import (
     "net/http"
 )
 
-func main() {
-    bots = make([]bot_t, 0)
-    generateWorld()
-    bots = append(bots, bot_t{X: 32, Y: 32, Color: "red", BatU: 4.2, Temp: 293})
+type App struct {
+    world *world_t
+}
 
-    go worldProc()
+func main() {
+    app := &App{
+        world: &world_t{
+            chunks: make(map[xy]chunk_t),
+            bots:   make([]bot_t, 0),
+        },
+    }
+
+    app.world.generateWorld(5)
+
+    app.world.addBot(-1, 0, "zerg17", "blue")
+    app.world.addBot(1, 0, "yayayat", "orange")
 
     http.HandleFunc("/", handlerStatic)
-    http.HandleFunc("/json/", handlerJson)
+    http.HandleFunc("/json/", app.handlerJson)
+
+    go app.world.proc()
 
     fmt.Println("Server started")
     http.ListenAndServe(":80", nil)

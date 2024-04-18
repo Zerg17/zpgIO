@@ -1,10 +1,9 @@
 package main
 
 type bot_t struct {
-    X, Y int
-    Color string
-    BatU float32
-    Temp float32
+    x, y int
+    name string
+    color string
+    batU float32
+    temp float32
 }
-
-var bots []bot_t
