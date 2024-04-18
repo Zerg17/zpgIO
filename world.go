@@ -1,10 +1,10 @@
 package main
 
 import (
-	"math/rand"
-	"time"
+    "math/rand"
+    "time"
 
-	"github.com/KEINOS/go-noise"
+    "github.com/KEINOS/go-noise"
 )
 
 const CHUNK_SIZE = 16
@@ -93,7 +93,9 @@ func (w *world_t) getChunk(x, y int) (chunk_t, bool) {
 }
 
 func (w *world_t) addBot(x, y int, name string, color string) {
-    w.bots = append(w.bots, bot_t{x: x, y: y, name: name, color: color, batU: 4.2, temp: 293})
+    w.bots = append(w.bots,
+        bot_t{x: x, y: y, name: name, color: color,
+            sensors: botSensors_t{ batU: 4.2, temp: 293.0 } })
 }
 
 func (w *world_t) proc() {
